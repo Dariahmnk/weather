@@ -6,6 +6,7 @@
 }
 
 body {
+    font-family: 'Montserrat', sans-serif;
     background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
     min-height: 100vh;
     display: flex;
@@ -29,9 +30,14 @@ body {
 
 .search {
     display: flex;
-    flex-direction: column; /* Ставимо інпут і кнопку один під одним */
+    flex-direction: column;
     gap: 12px;
     margin-bottom: 25px;
+    width: 100%;
+}
+
+.input-wrapper {
+    position: relative;
     width: 100%;
 }
 
@@ -44,7 +50,7 @@ body {
     padding: 14px 20px;
     border-radius: 16px;
     font-size: 16px;
-    text-align: center; /* Текст міста буде по центру */
+    text-align: center;
     -webkit-appearance: none;
     appearance: none;
 }
@@ -53,8 +59,42 @@ body {
     color: rgba(255, 255, 255, 0.7);
 }
 
+/* Випадаючий список підказок */
+.suggestions {
+    position: absolute;
+    top: 105%;
+    left: 0;
+    right: 0;
+    background: rgba(24, 40, 72, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    max-height: 180px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.suggestion-item {
+    padding: 12px 16px;
+    color: #fff;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
 .search button {
-    width: 100%; /* Кнопка на всю ширину картки */
+    width: 100%;
     border: none;
     outline: none;
     background: #ffffff;
@@ -81,15 +121,18 @@ body {
 }
 
 .city {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    line-height: 1.3;
 }
 
+/* Температура - елегантна та тонка */
 .temp {
     font-size: 64px;
-    font-weight: 700;
-    margin: 10px 0;
+    font-weight: 300; /* Тонкий стиль для елегантності */
+    margin: 15px 0;
+    letter-spacing: -1px;
 }
 
 .details {
