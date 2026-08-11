@@ -30,19 +30,23 @@ body {
 .search {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 25px;
+    width: 100%;
 }
 
 .search input {
     flex: 1;
-    border: 0;
-    outline: 0;
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
     background: rgba(255, 255, 255, 0.2);
     color: #fff;
-    padding: 14px 20px;
-    border-radius: 30px;
+    padding: 12px 18px;
+    border-radius: 25px;
     font-size: 16px;
+    -webkit-appearance: none;
 }
 
 .search input::placeholder {
@@ -50,22 +54,39 @@ body {
 }
 
 .search button {
-    border: 0;
-    outline: 0;
+    border: none;
+    outline: none;
     background: #ffffff;
     border-radius: 50%;
-    width: 48px;
-    height: 48px;
+    
+    /* Фіксуємо точні пропорції */
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    min-height: 46px;
+    flex-shrink: 0;
+    
+    /* Відцентровуємо вміст */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    
     cursor: pointer;
-    font-size: 18px;
+    -webkit-appearance: none;
     transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.search button:hover {
-    transform: scale(1.08);
-    background: #f0f0f0;
+.search button:active {
+    transform: scale(0.95);
 }
 
+.search button svg {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
 .weather {
     display: flex;
     flex-direction: column;
@@ -103,4 +124,36 @@ body {
 .wind {
     font-weight: 600;
     font-size: 16px;
+}
+
+/* Мобільна адаптація */
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+    }
+
+    .card {
+        padding: 24px 16px;
+        border-radius: 20px;
+    }
+
+    .search input {
+        padding: 10px 15px;
+        font-size: 15px;
+    }
+
+    .search button {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        min-height: 42px;
+    }
+
+    .city {
+        font-size: 26px;
+    }
+
+    .temp {
+        font-size: 48px;
+    }
 }

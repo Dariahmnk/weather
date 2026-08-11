@@ -61,4 +61,3 @@ searchInput.addEventListener("keydown", (event) => {
         handleSearch();
     }
 });
-
