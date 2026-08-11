@@ -1,5 +1,4 @@
 const searchInput = document.querySelector("#city-input");
-const searchBtn = document.querySelector("#search-btn");
 const suggestionsBox = document.querySelector("#suggestions");
 
 const tempElement = document.querySelector(".temp");
@@ -12,7 +11,6 @@ let debounceTimer;
 function formatLocationName(item) {
     if (!item) return "";
     
-    // Якщо це відповідь від Nominatim з об'єктом address
     if (item.address) {
         const addr = item.address;
         const name = addr.village || addr.town || addr.city || addr.hamlet || item.name;
@@ -22,11 +20,10 @@ function formatLocationName(item) {
         return [name, state, country].filter(Boolean).join(", ");
     }
 
-    // Для звичайного рядка
     return item.name || item;
 }
 
-// Пошук погоди
+// Пошук погоди з урахуванням поривів вітру
 async function searchWeather(queryOrCoords) {
     let latitude, longitude, formattedName;
 
@@ -53,7 +50,7 @@ async function searchWeather(queryOrCoords) {
             formattedName = formatLocationName(geoData[0]);
         }
 
-        // Запит погоди
+        // Запит звичайної поточної погоди
         const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
         const weatherResponse = await fetch(weatherUrl);
         const weatherData = await weatherResponse.json();
@@ -62,7 +59,9 @@ async function searchWeather(queryOrCoords) {
 
         cityElement.textContent = formattedName;
         tempElement.textContent = Math.round(temperature) + "°C";
-        windElement.textContent = windspeed + " km/h";
+        
+        
+        windElement.textContent = `${Math.round(windspeed)} км/год`;
 
         suggestionsBox.style.display = "none";
     } catch (error) {
@@ -70,7 +69,7 @@ async function searchWeather(queryOrCoords) {
     }
 }
 
-// Підказки (також лаконічні)
+// Підказки міст та сіл
 async function fetchSuggestions(query) {
     if (query.trim().length < 2) {
         suggestionsBox.style.display = "none";
@@ -92,7 +91,6 @@ async function fetchSuggestions(query) {
             const div = document.createElement("div");
             div.classList.add("suggestion-item");
             
-            // Відображаємо тільки: Назва (Область)
             const addr = item.address;
             const name = addr.village || addr.town || addr.city || item.name;
             const state = addr.state ? ` (${addr.state})` : "";
@@ -114,6 +112,7 @@ async function fetchSuggestions(query) {
     }
 }
 
+// Слухачі подій
 searchInput.addEventListener("input", (e) => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
@@ -127,14 +126,11 @@ document.addEventListener("click", (e) => {
     }
 });
 
-searchBtn.addEventListener("click", () => {
-    searchWeather(searchInput.value);
-});
-
 searchInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         searchWeather(searchInput.value);
     }
 });
 
+// Початкове місто при завантаженні
 searchWeather("Kyiv");
