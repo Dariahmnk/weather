@@ -7,23 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div class="card">
         <div class="search">
-            <input type="text" id="city-input" placeholder="Enter city name..." spellcheck="false">
+            <input type="text" id="city-input" placeholder="Введіть місто..." spellcheck="false">
             <button id="search-btn">🔍</button>
         </div>
 
         <div class="weather">
-            <h1 class="temp">-- °C</h1>
-            <h2 class="city">Loading...</h2>
+            <h1 class="city">--</h1>
+            <h2 class="temp">--°C</h2>
             
             <div class="details">
-                <div class="col">
-                    <div>
-                        <p class="wind">-- km/h</p>
-                        <p>Wind Speed</p>
-                    </div>
-                </div>
+                <span class="wind-label">💨 Вітер:</span>
+                <span class="wind">-- km/h</span>
             </div>
         </div>
     </div>
